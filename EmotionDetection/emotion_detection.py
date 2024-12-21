@@ -32,8 +32,24 @@ def emotion_detector(txt):
 
         emotion_data.update({'dominant emotion':most_significant_emotion})       
         return jsonify(emotion_data)
-    else:
-        return f"Error: {response.status_code}, {response.text}"
+    
+    
+    elif response.status_code == 400:
+        anger = None
+        disgust = None
+        fear = None
+        joy = None
+        sadness = None
+        dominant_emotion = None
+        return {
+            'anger':anger,
+            'disgust':disgust,
+            'fear':fear,
+            'joy':joy,
+            'sadness':sadness,
+            'dominant_emotion':dominant_emotion
+        }
+
 
     
 
