@@ -1,4 +1,5 @@
 import requests, json
+from flask import jsonify
 
 def emotion_detector(txt):
     text_to_analyze = txt
@@ -14,7 +15,6 @@ def emotion_detector(txt):
             "text": text_to_analyze
         }
     }
-
     response = requests.post(url, headers = headers, json = data)
     if response.status_code == 200:
         response_object = response.json()
@@ -30,13 +30,8 @@ def emotion_detector(txt):
             if highest_val == value:
                 most_significant_emotion = key
 
-        print("emotion: {")
-        for key, value in emotion_data.items():
-            print(f"\t{key}: {value}")
-        print("\tdominant_emotion:", f"{most_significant_emotion}")
-        print("}")
-        
-        return most_significant_emotion
+        emotion_data.update({'dominant emotion':most_significant_emotion})       
+        return jsonify(emotion_data)
     else:
         return f"Error: {response.status_code}, {response.text}"
 
