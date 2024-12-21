@@ -35,6 +35,8 @@ def emotion_detector(txt):
             print(f"\t{key}: {value}")
         print("\tdominant_emotion:", f"{most_significant_emotion}")
         print("}")
+        
+        return most_significant_emotion
     else:
         return f"Error: {response.status_code}, {response.text}"
 
